@@ -141,5 +141,5 @@ try {
 
 # Inform the user and wait for key press to close
 Write-Output "Druk op een knop om dit venster te sluiten."
-write-output "Bij enig probleem contacteer via mail indien mogelijk Techmusiclover@outlook.be."
+write-output "Bij enig probleem contacteer via mail indien Techmusiclover@outlook.be."
 $x = $host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
