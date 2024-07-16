@@ -134,7 +134,7 @@ Write-Output "..............................................."
 try {
     $clipboardContent = "MusicLoverRemote ID: $rustdesk_id`nPassword: $rustdesk_pw"
     $clipboardContent | Set-Clipboard
-    Write-Output "Het MusicLoverRemote ID en wachtwoord zij gekopieerd naar het clipboard."
+    Write-Output "Het MusicLoverRemote ID en wachtwoord zijn gekopieerd naar het clipboard."
 } catch {
     Write-Output "Error: Failed to copy MusicLoverRemote ID and Wachtwoord to the clipboard."
 }
