@@ -27,11 +27,11 @@ if (-Not (Test-Administrator)) {
 try {
     $rdver = (Get-ItemProperty "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\MusicLoverRemote\").Version
     if ($rdver -eq "1.2.7-2") {
-        Write-Output "MusicLoverRemote $rdver is the newest version"
+        Write-Output "MusicLoverRemote $rdver de nieuwste versie"
         exit
     }
 } catch {
-    Write-Output "MusicLoverRemote not found or version check failed."
+    Write-Output "MusicLoverRemote niet gevonden of versie is niet juist."
 }
 
 # Create Temp directory if it doesn't exist
@@ -42,28 +42,28 @@ if (-Not (Test-Path C:\Temp)) {
 cd C:\Temp
 
 # Download MusicLoverRemote
-Write-Output "Downloading MusicLoverRemote..."
+Write-Output "Downloaden van MusicLoverRemote..."
 try {
 powershell Invoke-WebRequest "https://desk.nas86.eu/static/configs/MusicLoverRemote.exe" -OutFile "MusicLoverRemote.exe"
 } catch {
-    Write-Output "Error: Failed to download MusicLoverRemote."
+    Write-Output "Error: Gefaald om MusicLoverRemote te downloaden."
     Pause
     exit
 }
 
 # Install RustDesk silently with timeout
-Write-Output "Installing MusicLoverRemote..."
+Write-Output "Installeren van MusicLoverRemote..."
 try {
     $installProcess = Start-Process .\MusicLoverRemote.exe -ArgumentList "--silent-install" -PassThru -NoNewWindow
     $installProcess.WaitForExit(60000)  # Wait for 60 seconds
     if (-Not $installProcess.HasExited) {
-        Write-Output "Error: MusicLoverRemote installation timed out."
+        Write-Output "Error: MusicLoverRemote installatie timed out."
         $installProcess.Kill()
         Pause
         exit
     }
 } catch {
-    Write-Output "Error: MusicLoverRemote installation failed."
+    Write-Output "Error: MusicLoverRemote installatie gefaald. Contacteer techmusiclover@outlook.be"
     Pause
     exit
 }
@@ -73,13 +73,13 @@ $ServiceName = 'MusicLoverRemote'
 $arrService = Get-Service -Name $ServiceName -ErrorAction SilentlyContinue
 
 if ($arrService -eq $null) {
-    Write-Output "Installing MusicLoverRemote service..."
+    Write-Output "Installeren van MusicLoverRemote service..."
     cd $env:ProgramFiles\MusicLoverRemote 
     try {
         Start-Process .\MusicLoverRemote.exe --install-service -Wait -NoNewWindow -PassThru
         Start-Sleep -Seconds 10
     } catch {
-        Write-Output "Error: Failed to install MusicLoverRemote service."
+        Write-Output "Error: Gefaald om de MusicLoverRemote service te installeren."
         Pause
         exit
     }
@@ -99,27 +99,27 @@ try {
     $rustdesk_id = & .\MusicLoverRemote.exe --get-id | Out-String
     $rustdesk_id = $rustdesk_id.Trim()
 } catch {
-    Write-Output "Error: Failed to get MusicLoverRemote ID."
+    Write-Output "Error: Gefaald om de MusicLoverRemote ID te lokaliseren."
     Pause
     exit
 }
 
 # Apply MusicLoverRemote  configuration
-Write-Output "Configuring MusicLoverRemote ..."
+Write-Output "Instellen van MusicLoverRemote ..."
 try {
     & .\MusicLoverRemote.exe --config $rustdesk_cfg
 } catch {
-    Write-Output "Error: Failed to configure MusicLoverRemote."
+    Write-Output "Error: Gefaald om MusicLoverRemote in te stellen."
     Pause
     exit
 }
 
 # Set MusicLoverRemote password
-Write-Output "Setting MusicLoverRemote password..."
+Write-Output "Instellen van MusicLoverRemote wachtwoord..."
 try {
     & .\MusicLoverRemote.exe --password $rustdesk_pw
 } catch {
-    Write-Output "Error: Failed to set MusicLoverRemote password."
+    Write-Output "Error: Gefaald om het MusicLoverRemote wachtwoord in te stellen."
     Pause
     exit
 }
@@ -134,11 +134,12 @@ Write-Output "..............................................."
 try {
     $clipboardContent = "MusicLoverRemote ID: $rustdesk_id`nPassword: $rustdesk_pw"
     $clipboardContent | Set-Clipboard
-    Write-Output "The MusicLoverRemote ID and Wachtwoord have been copied to the clipboard."
+    Write-Output "Het MusicLoverRemote ID en wachtwoord zij gekopieerd naar het clipboard."
 } catch {
     Write-Output "Error: Failed to copy MusicLoverRemote ID and Wachtwoord to the clipboard."
 }
 
 # Inform the user and wait for key press to close
-Write-Output "Press any key to close this window."
+Write-Output "Druk op een knop om dit venster te sluiten."
+write-output "Bij enig probleem contacteer Techmusiclover@outlook.be."
 $x = $host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
