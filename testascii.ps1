@@ -1,6 +1,6 @@
 Install-Module -Name WriteAscii -Force
 Import-Module -Name WriteAscii 
-Write-Ascii  "Installeren van MusicLoverRemote" -fore blue
+Write-Ascii  "Installeren van MusicLoverRemote" -fore rainbow
 $ErrorActionPreference = 'Stop'
 
 # Assign the value random password to the password variable
