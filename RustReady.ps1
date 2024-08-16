@@ -426,5 +426,57 @@ function Restart-RustDesk {
     Start-Process -FilePath "C:\Program Files\RustDesk\rustdesk.exe"
 }
 
+
+# Theme ComboBox
+$toolTip.SetToolTip($themeComboBox, "Select the visual theme for RustDesk (Light or Dark)")
+
+# Language ComboBox
+$toolTip.SetToolTip($languageComboBox, "Choose the language for the RustDesk interface")
+
+# Server Address TextBox
+$toolTip.SetToolTip($serverTextBox, "Enter the address of your RustDesk server")
+
+# Key TextBox
+$toolTip.SetToolTip($keyTextBox, "Enter your RustDesk authentication key")
+
+# Password TextBox
+$toolTip.SetToolTip($passwordTextBox, "Set a password for accessing this RustDesk client")
+
+# Configure Button
+$toolTip.SetToolTip($configureButton, "Apply the selected configuration settings")
+
+# Download Buttons (add this inside the Create-DownloadButtons function)
+function Create-DownloadButtons {
+    # ... (existing code)
+     # Clear existing buttons
+     $buttonContainer.Controls.Clear()
+    foreach ($key in $urls.Keys) {
+        $button = New-Object System.Windows.Forms.Button
+        # ... (existing button setup code)
+        $button.Size = New-Object System.Drawing.Size(200,30)
+        $button.Text = "Download $key"
+        $button.BackColor = [System.Drawing.ColorTranslator]::FromHtml("#4CAF50")
+        $button.ForeColor = [System.Drawing.Color]::White
+        $button.Add_Click({
+            $url = $urls[$this.Text.Replace("Download ", "")]
+            $saveFileDialog = New-Object System.Windows.Forms.SaveFileDialog
+            $saveFileDialog.FileName = $url.Split("/")[-1]
+            $saveFileDialog.Filter = "All files (*.*)|*.*"
+            if ($saveFileDialog.ShowDialog() -eq [System.Windows.Forms.DialogResult]::OK) {
+                # Start download synchronously
+                Download-File -Url $url -OutputPath $saveFileDialog.FileName
+            }
+        })
+        
+        # Add tooltip to each download button
+        $toolTip.SetToolTip($button, "Download the $key file for RustDesk")
+        
+        $buttonContainer.Controls.Add($button)
+    }
+}
+
+# Logo PictureBox
+$toolTip.SetToolTip($logoPictureBox, "RustDesk Configuration Tool")
+
 # Show the form
 $form.ShowDialog()
