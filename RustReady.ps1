@@ -1,3 +1,5 @@
+$scriptPath = $MyInvocation.MyCommand.Path
+Unblock-File -Path $scriptPath
 Add-Type -AssemblyName System.Windows.Forms
 Add-Type -AssemblyName System.Drawing
 
