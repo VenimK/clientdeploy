@@ -165,7 +165,7 @@ $form.Controls.Add($languageGroup)
 $languageComboBox = New-Object System.Windows.Forms.ComboBox
 $languageComboBox.Location = New-Object System.Drawing.Point(20, 30)
 $languageComboBox.Size = New-Object System.Drawing.Size(300, 30)
-$languageComboBox.Items.AddRange(@("en", "nl", "it", "fr", "es"))  # Set available languages
+$languageComboBox.Items.AddRange(@("ar", "bg", "ca", "cs", "da", "de", "el", "en", "fa", "fr", "he", "hr", "hu", "id", "it", "ja", "ko", "kz", "lt", "lv", "nb", "nl", "pl", "pt", "ro", "ru", "sk", "sl", "sq", "sr", "sv", "th", "tr", "uk", "vn", "zh-cn", "zh-tw"))  # Set available languages
 $languageComboBox.SelectedIndex = 0 # Set default selection to "en"
 $languageComboBox.ForeColor = [System.Drawing.Color]::DarkBlue
 $languageGroup.Controls.Add($languageComboBox)
