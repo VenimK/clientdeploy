@@ -61,7 +61,7 @@ function Update-Urls {
     )
 
     # Update URLs with the base URL
-    $urls["Windows exe"] = "$newBaseUrl/static/configs/rustdesk-licensed-Qfi02bj5ybl5WLlR3btVmcuIXav8iOzBHd0hmI6ISawFmIsISPNBVZy10QtV1SwV3ZY10dtBFOuJVYiZme5VFUtJzTOlHUhhDajlFd5kXZ5JiOikXZrJCLi02bj5ybl5WLlR3btVmcuIXaiojI0N3boJye.exe"
+    $urls["Windows exe"] = "$newBaseUrl/static/configs/static/configs/Remote.exe"
     $urls["Windows installer bat"] = "$newBaseUrl/static/configs/install.bat"
     $urls["Windows Installer powershell"] = "$newBaseUrl/static/configs/install.ps1"
     $urls["Linux Installer"] = "$newBaseUrl/static/configs/install-linux.sh"
